@@ -74,7 +74,7 @@ function turn(playerOne, playerTwo, event){
     if(!playerOne.playerWon() && !playerTwo.playerWon() && event.target.textContent === ''){
         playerOne.addTile(event.target.getAttribute('data-index'));
         event.target.textContent = playerOne.getSign();
-        document.getElementById('info').textContent = `It's Player ${playerOne.getSign()}'s Turn`;
+        document.getElementById('info').textContent = `It's Player ${playerTwo.getSign()}'s Turn`;
         playerOne.winCheck();
         checkTie();
         playSpace.nextTurn();
