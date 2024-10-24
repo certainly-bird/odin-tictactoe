@@ -8,6 +8,7 @@ const playSpace = (function(){
 
     const clearSpace = () => {
         const tiles = document.querySelectorAll('.space-tile');
+        document.getElementById('info').textContent = `It's Player ${playerX.getSign()}'s Turn`;
         turnCount = 0;
         for (i = 0; i < tiles.length; i++){
             tiles[i].textContent = '';
@@ -26,13 +27,17 @@ const playSpace = (function(){
 function Player(sign){
     const getSign = () => sign;
 
-    const playedTiles = [];
+    let playedTiles = [];
 
     const tilesOwned = () => playedTiles.length;
 
     const addTile = (index) => {
         return playedTiles.push(Number.parseInt(index));
     };
+
+    let hasWon = false;
+
+    const playerWon = () => hasWon;
 
     const winCheck = () => {
         winConditions = [
@@ -49,38 +54,48 @@ function Player(sign){
             if (playedTiles.includes(winConditions[win][0]) && 
             playedTiles.includes(winConditions[win][1]) && 
             playedTiles.includes(winConditions[win][2])){
-                window.alert(`Player ${sign} wins!`);
+                document.getElementById('info').textContent = `Player ${sign} Wins`;
+                hasWon = true;
                 return true;
             }
         }
         return false;
     }
 
-    const clearPlayer = () => playedTiles.length = 0;
+    const clearPlayer = () => {
+        playedTiles = []
+        hasWon = false;
+    };
 
-    return {getSign, addTile, winCheck, clearPlayer, tilesOwned};
+    return {getSign, addTile, winCheck, clearPlayer, tilesOwned, playerWon};
 }
 
 function tileClicked(event){
     if(playSpace.getTurn() % 2 === 0){
-        playerX.addTile(event.target.getAttribute('data-index'));
-        event.target.textContent = 'X';
-        playerX.winCheck();
-        checkTie();
-        playSpace.nextTurn();
+        if(!playerX.playerWon() && !playerO.playerWon() && event.target.textContent === ''){
+            playerX.addTile(event.target.getAttribute('data-index'));
+            event.target.textContent = playerX.getSign();
+            document.getElementById('info').textContent = `It's Player ${playerO.getSign()}'s Turn`;
+            playerX.winCheck();
+            checkTie();
+            playSpace.nextTurn();
+        }
     }else{
-        playerO.addTile(event.target.getAttribute('data-index'));
-        event.target.textContent = 'O';
-        playerO.winCheck();
-        checkTie();
-        playSpace.nextTurn();
+        if(!playerX.playerWon() && !playerO.playerWon() && event.target.textContent === ''){
+            playerO.addTile(event.target.getAttribute('data-index'));
+            event.target.textContent = playerO.getSign();
+            document.getElementById('info').textContent = `It's Player ${playerX.getSign()}'s Turn`;
+            playerO.winCheck();
+            checkTie();
+            playSpace.nextTurn();
+        }
     }
 }
 
 function checkTie(){
     const boardState = playerX.tilesOwned() + playerO.tilesOwned();
     if (boardState === 9 && playerX.winCheck() === false && playerO.winCheck() === false){
-        window.alert(`It's a tie!`);
+        document.getElementById('info').textContent = `It's A Tie`;
     }
 }
 
