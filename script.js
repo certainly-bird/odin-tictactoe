@@ -70,25 +70,22 @@ function Player(sign){
     return {getSign, addTile, winCheck, clearPlayer, tilesOwned, playerWon};
 }
 
+function turn(playerOne, playerTwo, event){
+    if(!playerOne.playerWon() && !playerTwo.playerWon() && event.target.textContent === ''){
+        playerOne.addTile(event.target.getAttribute('data-index'));
+        event.target.textContent = playerOne.getSign();
+        document.getElementById('info').textContent = `It's Player ${playerOne.getSign()}'s Turn`;
+        playerOne.winCheck();
+        checkTie();
+        playSpace.nextTurn();
+    }
+}
+
 function tileClicked(event){
     if(playSpace.getTurn() % 2 === 0){
-        if(!playerX.playerWon() && !playerO.playerWon() && event.target.textContent === ''){
-            playerX.addTile(event.target.getAttribute('data-index'));
-            event.target.textContent = playerX.getSign();
-            document.getElementById('info').textContent = `It's Player ${playerO.getSign()}'s Turn`;
-            playerX.winCheck();
-            checkTie();
-            playSpace.nextTurn();
-        }
+        turn(playerX, playerO, event);
     }else{
-        if(!playerX.playerWon() && !playerO.playerWon() && event.target.textContent === ''){
-            playerO.addTile(event.target.getAttribute('data-index'));
-            event.target.textContent = playerO.getSign();
-            document.getElementById('info').textContent = `It's Player ${playerX.getSign()}'s Turn`;
-            playerO.winCheck();
-            checkTie();
-            playSpace.nextTurn();
-        }
+        turn(playerO, playerX, event);
     }
 }
 
