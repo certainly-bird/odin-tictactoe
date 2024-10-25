@@ -137,3 +137,7 @@ h1{
 .space-tile:hover{
     background-color: hsl(29, 100%, 95%);
 }
+
+.space-tile:active{
+    scale: 0.975;
+}
