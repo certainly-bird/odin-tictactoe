@@ -20,22 +20,23 @@ body{
 }
 
 h1{
-    font-size: 5rem;
+    font-size: 3rem;
 }
 
 #info{
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: normal;
 }
 
 .play-space{
-    height: minmax(15rem, 45rem);
-    width: minmax(15rem, 45rem);
+    height: 15rem;
+    width: 15rem;
     background-color: rgb(210, 210, 210);
     display: grid;
-    grid-template-columns: repeat(3, minmax(5rem, 15rem));
-    grid-template-rows: repeat(3, minmax(5rem, 15rem));
+    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: repeat(3, 5rem);
     padding: 0.25rem;
+    border-radius: 1rem;
 }
 
 .space-tile{
@@ -44,7 +45,72 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 5rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+}  
+
+@media screen and (min-height: 45rem) and (min-width: 35rem){
+    h1{
+        font-size: 3rem;
+    }
+    
+    #info{
+        font-size: 1.5rem;
+        font-weight: normal;
+    }
+
+    .play-space{
+        height: 27rem;
+        width: 27rem;
+        background-color: rgb(210, 210, 210);
+        display: grid;
+        grid-template-columns: repeat(3, 9rem);
+        grid-template-rows: repeat(3, 9rem);
+        padding: 0.25rem;
+        border-radius: 1rem;
+    }
+    
+    .space-tile{
+        background-color: white;
+        margin: 0.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        border-radius: 1rem;
+    }   
+}
+
+@media screen and (min-height: 70rem) and (min-width: 55rem){
+    h1{
+        font-size: 5rem;
+    }
+    
+    #info{
+        font-size: 3rem;
+        font-weight: normal;
+    }
+
+    .play-space{
+        height: 45rem;
+        width: 45rem;
+        background-color: rgb(210, 210, 210);
+        display: grid;
+        grid-template-columns: repeat(3, 15rem);
+        grid-template-rows: repeat(3, 15rem);
+        padding: 0.25rem;
+        border-radius: 1rem;
+    }
+
+    .space-tile{
+        background-color: white;
+        margin: 0.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem;
+        border-radius: 1rem;
+    }
 }
 
 .clear-btn{
@@ -58,4 +124,16 @@ h1{
     align-items: center;
     border-radius: 2rem;
     font-weight: bold;
+}
+
+.clear-btn:hover{
+    scale: 1.05;
+}
+
+.clear-btn:active{
+    scale: 1;
+}
+
+.space-tile:hover{
+    background-color: hsl(29, 100%, 95%);
 }
